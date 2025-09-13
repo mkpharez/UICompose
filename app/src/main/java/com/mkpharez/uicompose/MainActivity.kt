@@ -86,12 +86,14 @@ fun CardContent(name: String) {
                         )
                     }
             }
-              OutlinedButton(onClick = {expanded}){
-                  if (expanded.value) {
-                      stringResource(R.string.show_less)
-                  } else {
-                      stringResource(R.string.show_less)
-                  }
+              OutlinedButton(onClick = { expanded.value = !expanded.value }){
+                  Text(
+                      if (expanded.value) {
+                          stringResource(R.string.show_less)
+                      } else {
+                          stringResource(R.string.show_more)
+                      }
+                  )
             }
 
         }
