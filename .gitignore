@@ -13,3 +13,19 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Release build outputs
+app/build/
+*/build/
+
+# Keystores (keep debug.keystore for demonstration, but exclude others)
+*.jks
+*.keystore
+!app/debug.keystore
+
+# APK files
+*.apk
+*.aab
+
+# Signing files
+key.properties

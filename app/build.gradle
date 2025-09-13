@@ -3,6 +3,13 @@ plugins {
     id 'kotlin-android'
 }
 
+// Load signing properties if available
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdk 31
 
@@ -19,10 +26,47 @@ android {
         }
     }
 
-    buildTypes {
+    signingConfigs {
+        debug {
+            // Default debug signing config (automatically provided by Gradle)
+        }
         release {
+            // Check if production signing properties are available
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            } else {
+                // Fallback to debug signing for demonstration
+                // In production, this should fail to ensure proper signing
+                storeFile file('debug.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
             minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            
+            // Additional release optimizations
+            zipAlignEnabled true
+            
+            // Keep original application ID for release
+            // applicationIdSuffix "" // This line is not needed as it's the default
         }
     }
     compileOptions {
