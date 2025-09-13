@@ -19,3 +19,31 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Jetpack Compose specific ProGuard rules
+-dontwarn androidx.compose.**
+-keep class androidx.compose.** { *; }
+-keep class kotlin.Metadata { *; }
+
+# Keep Compose compiler generated classes
+-keep @androidx.compose.runtime.Stable class * { *; }
+-keep @androidx.compose.runtime.Immutable class * { *; }
+
+# Keep Kotlin coroutines
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+# Keep serialization
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.AnnotationsKt
+
+# AndroidX
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+
+# Kotlin
+-keep class kotlin.** { *; }
+-dontwarn kotlin.**
+
+# Application specific
+-keep class com.mkpharez.uicompose.** { *; }
