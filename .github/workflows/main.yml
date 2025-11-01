@@ -1,6 +1,7 @@
 name: Android CI app
 
 on:
+  workflow_dispatch:
   push:
     branches: [ master ]
   pull_request:
@@ -22,6 +23,8 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
+    - name: Download dependencies
+      run: ./gradlew build --dry-run
 
     - name: Build APK
       run: ./gradlew assembleDebug
