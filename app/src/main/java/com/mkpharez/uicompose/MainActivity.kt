@@ -97,3 +97,49 @@ fun LoginPage(navController: NavHostController) {
 }
 
 
+@Composable
+fun RegistrationPage(navController: NavHostController) {
+    var name by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    Surface(color = MaterialTheme.colors.background) {
+        Crossfade(targetState = true) { _ ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(32.dp),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("Register", style = MaterialTheme.typography.h5)
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Name") }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    visualTransformation = PasswordVisualTransformation()
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Button(onClick = { /* Handle registration */ }) {
+                    Text("Sign Up")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                TextButton(onClick = { navController.navigate("login") }) {
+                    Text("Already have an account? Login")
+                }
+            }
+        }
+    }
+}
