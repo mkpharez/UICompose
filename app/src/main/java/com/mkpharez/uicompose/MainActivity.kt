@@ -29,3 +29,32 @@ fun MyApp() {
         composable("register") { RegistrationPage(navController) }
     }
 }
+
+@Composable
+fun LandingPage(navController: NavHostController) {
+    Surface(color = MaterialTheme.colors.background) {
+        AnimatedVisibility(
+            visible = true,
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text("Welcome!", style = MaterialTheme.typography.h4)
+                Spacer(modifier = Modifier.height(24.dp))
+                Button(onClick = { navController.navigate("login") }) {
+                    Text("Login")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = { navController.navigate("register") }) {
+                    Text("Register")
+                }
+            }
+        }
+    }
+}
+
+
