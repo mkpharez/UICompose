@@ -30,6 +30,7 @@ fun MyApp() {
     }
 }
 
+
 @Composable
 fun LandingPage(navController: NavHostController) {
     Surface(color = MaterialTheme.colors.background) {
