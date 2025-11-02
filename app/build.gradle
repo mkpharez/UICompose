@@ -11,6 +11,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
+namespace="com.mkpharez.uicompose"
     compileSdk 34
 
     defaultConfig {
